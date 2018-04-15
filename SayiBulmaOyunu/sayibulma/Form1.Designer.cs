@@ -556,6 +556,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "Sayı Bulma Oyunu";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.sayigirpanel.ResumeLayout(false);
             this.sayigirpanel.PerformLayout();
             this.paneltime.ResumeLayout(false);

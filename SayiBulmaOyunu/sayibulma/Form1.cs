@@ -111,8 +111,8 @@ namespace sayibulma
                 }
             }
 
-            string gosterdizi = string.Join(Environment.NewLine, sayilar);
-            MessageBox.Show(gosterdizi);
+           // string gosterdizi = string.Join(Environment.NewLine, sayilar);
+           // MessageBox.Show(gosterdizi);
 
         }
 
@@ -226,6 +226,9 @@ namespace sayibulma
             e.Handled = !(char.IsLetter(e.KeyChar) || e.KeyChar == (char)Keys.Back);
         }
 
-        
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
