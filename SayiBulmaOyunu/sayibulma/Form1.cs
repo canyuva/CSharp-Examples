@@ -48,6 +48,7 @@ namespace sayibulma
                 Application.Restart();
              }
 
+            // Buton click eventi ile birlikte açılan paneller
             paneltime.Visible = true;
             panelhak.Visible = true;
             timeresim.Visible = true;
@@ -61,13 +62,15 @@ namespace sayibulma
 
 
             
-
+            // Geri sayım sayacı başlatma ve 1000ms interval ataması
             timer1.Interval = 1000;
             timer1.Start();
 
+            // Kullanıcı isminin harf sayısını almak için char dizisi oluşturuluyor
             String s = tbisim.Text;
             var harfler = s.ToCharArray();
 
+            // Harf sayısına göre basamak sayısına uygun textboxlar gösteriliyor
             for (int i = 0; i < harfler.Length; i++)
             {
                 var txts = this.Controls.Find("textbox" + i, true);
@@ -88,6 +91,7 @@ namespace sayibulma
             sayilar = new int[harfler.Length];
             Random rnd = new Random();
 
+            // Rakamları tekrar eden random sayı dizisi doldurma işlemi
             if (tekrar.Checked)
             {
                 for (int i = 0; i < sayilar.Length; i++)
@@ -96,6 +100,7 @@ namespace sayibulma
                 }
             }
 
+            // Rakamları tekrar etmeyen random sayı dizisi doldurma işlemi
             if (tekrarsiz.Checked)
             {
                 int sayac = 0;
@@ -122,8 +127,11 @@ namespace sayibulma
         int[] dizi2;
         private void btntahmin_Click(object sender, EventArgs e)
         {
+                // Oyunu kazanmak için geçiçi bir list oluşturuluyor **
                 List<int> temp = new List<int>();
 
+
+                // Oyun mekanizması
                 for (int i = 0; i < sayilar.Length; i++)
                 {
                     var txts = this.Controls.Find("textbox" + i, true);
@@ -136,12 +144,16 @@ namespace sayibulma
                     }
                     foreach (Panel pnl in pnls)
                     {
+                        // Eğer girilen sayı dizide varsa...
                         if (pos > -1)
                         {
+                            // Panel kırmızı oluyor
                             pnl.BackColor = Color.Red;
+                            // Eğer sayı dizinin indisiyle aynı yerdeyse mavi olacak
                             if (a == sayilar[i])
                             {
                                 pnl.BackColor = Color.Blue;
+                            // ** Eğer girilen sayı tam anlamıyla doğruysa geçici liste atılıyor
                                 temp.Add(a);
                             }
                         }
@@ -152,21 +164,24 @@ namespace sayibulma
 
                         if(pos > -1 && a != sayilar[i])
                         {
+                            // Sayı dizide varsa ama yeri doğru değilse hak 1 azalıyor
                             can = can - 1;
                             haklabel.Text = can.ToString();
                         }  
                     }                    
                 }
 
+                // Geçiçi list diziye dönüştürülüyor
                dizi2 = temp.ToArray();
 
-
+            // ** Eğer geçiçi dizi rastgele sayılardan oluşan dizi ile aynıysa oyunu kazanırız
             if (dizi2.SequenceEqual(sayilar))
             {
                 MessageBox.Show("TEBRİKLER BİLDİNİZ !!!");
                 yeniOyun();
             }
 
+            // Hakkımız biterse...
             if (can <= 0)
                 {
                 MessageBox.Show("HAKKINIZ BİTTİ");
@@ -174,6 +189,7 @@ namespace sayibulma
                 }
         }
 
+        // Yeni oyun diyaloğu için method..
         public void yeniOyun()
         {
             string gosterdizi = string.Join(Environment.NewLine, sayilar);
@@ -191,6 +207,8 @@ namespace sayibulma
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            // Geri sayım için timer..
+
             if(sayac > 0)
             {
                 sayac = sayac - 1;
@@ -203,8 +221,6 @@ namespace sayibulma
                 yeniOyun();
             }
         }
-
-        
 
         private void tbsure_KeyPress(object sender, KeyPressEventArgs e)
         {
